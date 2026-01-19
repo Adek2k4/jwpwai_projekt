@@ -7,12 +7,14 @@ import { useState } from 'react';
 import { useAuth } from '@/app/context/AuthContext';
 import AuthForm from '@/app/components/AuthForm';
 import GoogleButton from '@/app/components/GoogleButton';
+import useInteractiveGradient from '@/app/hooks/useInteractiveGradient';
 
 export default function LoginPage() {
   const router = useRouter();
   const { setIsLoggedIn, setUser } = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const pageRef = useInteractiveGradient();
 
   const handleSubmit = async (formData) => {
     setError('');
@@ -49,7 +51,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="auth-page">
+    <div ref={pageRef} className="auth-page" style={{ '--hero-mouse-x': '50%', '--hero-mouse-y': '50%' }}>
       <div className="auth-container">
         <div className="auth-header">
           <Link href="/" className="auth-logo">

@@ -18,6 +18,9 @@
   --red-hover: #dc2626;
   --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --hero-gradient-start: rgba(59, 130, 246, 0.12);
+  --hero-gradient-end: rgba(14, 165, 233, 0.08);
+  --hero-spot: rgba(59, 130, 246, 0.28);
 }
 
 html.dark {
@@ -34,6 +37,9 @@ html.dark {
   --red-hover: #f87171;
   --shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.3);
+  --hero-gradient-start: rgba(59, 130, 246, 0.16);
+  --hero-gradient-end: rgba(14, 165, 233, 0.14);
+  --hero-spot: rgba(59, 130, 246, 0.34);
 }
 
 body {
@@ -260,10 +266,14 @@ body {
   min-height: 70vh;
   text-align: center;
   padding: 5rem 1rem;
+  background:
+    radial-gradient(1200px at var(--hero-mouse-x, 50%) var(--hero-mouse-y, 50%), var(--hero-spot), transparent 80%),
+    linear-gradient(135deg, var(--hero-gradient-start), var(--hero-gradient-end));
 }
 
 .hero-content {
-  max-width: 600px;
+  max-width: 640px;
+  padding: 0 1rem;
 }
 
 .hero-title {
@@ -343,7 +353,9 @@ body {
 /* Auth Pages */
 .auth-page {
   min-height: 100vh;
-  background-color: var(--bg-primary);
+  background:
+    radial-gradient(1200px at var(--hero-mouse-x, 50%) var(--hero-mouse-y, 50%), var(--hero-spot), transparent 80%),
+    linear-gradient(135deg, var(--hero-gradient-start), var(--hero-gradient-end));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -440,7 +452,7 @@ body {
   position: relative;
   display: inline-block;
   padding: 0 0.5rem;
-  background-color: var(--bg-primary);
+  background-color: transparent;
   color: var(--text-secondary);
   font-size: 0.875rem;
 }

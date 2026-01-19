@@ -1,13 +1,17 @@
-import Link from 'next/link';
+'use client';
 
-export const metadata = {
-  title: 'NotesApp - Zarządzanie notatkami',
-  description: 'Szybka aplikacja do notatek tekstowych i zdjęć',
-};
+import Link from 'next/link';
+import useInteractiveGradient from '@/app/hooks/useInteractiveGradient';
 
 export default function Home() {
+  const heroRef = useInteractiveGradient();
+
   return (
-    <section className="hero">
+    <section
+      ref={heroRef}
+      className="hero"
+      style={{ '--hero-mouse-x': '50%', '--hero-mouse-y': '50%' }}
+    >
       <div className="hero-content">
         <h1 className="hero-title">NotesApp</h1>
         <p className="hero-description">

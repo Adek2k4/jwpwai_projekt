@@ -8,6 +8,7 @@ import { useAuth } from '@/app/context/AuthContext';
 import AuthForm from '@/app/components/AuthForm';
 import GoogleButton from '@/app/components/GoogleButton';
 import useInteractiveGradient from '@/app/hooks/useInteractiveGradient';
+import styles from './page.module.css';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -51,26 +52,26 @@ export default function LoginPage() {
   };
 
   return (
-    <div ref={pageRef} className="auth-page" style={{ '--hero-mouse-x': '50%', '--hero-mouse-y': '50%' }}>
-      <div className="auth-container">
-        <div className="auth-header">
-          <Link href="/" className="auth-logo">
-            <div className="logo-container">
+    <div ref={pageRef} className={styles.authPage} style={{ '--hero-mouse-x': '50%', '--hero-mouse-y': '50%' }}>
+      <div className={styles.authContainer}>
+        <div className={styles.authHeader}>
+          <Link href="/" className={styles.authLogo}>
+            <div className={styles.authLogoBox}>
               <Image
                 src="/logo.webp"
                 alt="NotesApp logo"
                 width={40}
                 height={40}
-                className="logo-image"
+                className={styles.authLogoImage}
               />
             </div>
           </Link>
-          <h1 className="auth-title">Zaloguj się</h1>
-          <p className="auth-subtitle">Wróć do swoich notatek</p>
+          <h1 className={styles.authTitle}>Zaloguj się</h1>
+          <p className={styles.authSubtitle}>Wróć do swoich notatek</p>
         </div>
 
         {error && (
-          <div className="error-message">
+          <div className={styles.errorMessage}>
             {error}
           </div>
         )}
@@ -88,14 +89,14 @@ export default function LoginPage() {
             </Link>
           </div>
 
-          <div className="divider">
-            <span className="divider-text">Lub</span>
+          <div className={styles.divider}>
+            <span className={styles.dividerText}>Lub</span>
           </div>
 
           <GoogleButton />
         </div>
 
-        <p className="auth-link">
+        <p className={styles.authLink}>
           Nie masz jeszcze konta?{' '}
           <Link href="/register">Zarejestruj się</Link>
         </p>

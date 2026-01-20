@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import useInteractiveGradient from '@/app/hooks/useInteractiveGradient';
+import styles from './page.module.css';
 
 export default function Home() {
   const heroRef = useInteractiveGradient();
@@ -9,15 +10,15 @@ export default function Home() {
   return (
     <section
       ref={heroRef}
-      className="hero"
+      className={styles.hero}
       style={{ '--hero-mouse-x': '50%', '--hero-mouse-y': '50%' }}
     >
-      <div className="hero-content">
-        <h1 className="hero-title">NotesApp</h1>
-        <p className="hero-description">
+      <div className={styles.heroContent}>
+        <h1 className={styles.heroTitle}>NotesApp</h1>
+        <p className={styles.heroDescription}>
           Twórz, organizuj i miej swoje notatki oraz zdjęcia zawsze pod ręką. Zaloguj się lub załóż konto, aby zacząć.
         </p>
-        <div className="hero-buttons">
+        <div className={styles.heroButtons}>
           <Link href="/register" className="btn btn-primary btn-lg">
             Rejestracja
           </Link>

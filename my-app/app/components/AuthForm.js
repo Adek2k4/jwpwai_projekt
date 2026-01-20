@@ -1,5 +1,7 @@
 'use client';
 
+import styles from '@/app/components/css/AuthForm.module.css';
+
 export default function AuthForm({ title, onSubmit, isLogin = false }) {
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -7,9 +9,9 @@ export default function AuthForm({ title, onSubmit, isLogin = false }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="form">
-      <div className="form-group">
-        <label htmlFor="email" className="form-label">
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <div className={styles.formGroup}>
+        <label htmlFor="email" className={styles.formLabel}>
           Adres Email
         </label>
         <input
@@ -17,13 +19,13 @@ export default function AuthForm({ title, onSubmit, isLogin = false }) {
           id="email"
           name="email"
           required
-          className="form-input"
+          className={styles.formInput}
           placeholder="twoj.email@example.com"
         />
       </div>
 
-      <div className="form-group">
-        <label htmlFor="password" className="form-label">
+      <div className={styles.formGroup}>
+        <label htmlFor="password" className={styles.formLabel}>
           Hasło
         </label>
         <input
@@ -31,15 +33,15 @@ export default function AuthForm({ title, onSubmit, isLogin = false }) {
           id="password"
           name="password"
           required
-          className="form-input"
+          className={styles.formInput}
           placeholder="••••••••"
         />
       </div>
 
       {!isLogin && (
         <>
-          <div className="form-group">
-            <label htmlFor="confirmPassword" className="form-label">
+          <div className={styles.formGroup}>
+            <label htmlFor="confirmPassword" className={styles.formLabel}>
               Potwierdź hasło
             </label>
             <input
@@ -47,13 +49,13 @@ export default function AuthForm({ title, onSubmit, isLogin = false }) {
               id="confirmPassword"
               name="confirmPassword"
               required
-              className="form-input"
+              className={styles.formInput}
               placeholder="••••••••"
             />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="name" className="form-label">
+          <div className={styles.formGroup}>
+            <label htmlFor="name" className={styles.formLabel}>
               Imię i Nazwisko
             </label>
             <input
@@ -61,7 +63,7 @@ export default function AuthForm({ title, onSubmit, isLogin = false }) {
               id="name"
               name="name"
               required
-              className="form-input"
+              className={styles.formInput}
               placeholder="Jan Kowalski"
             />
           </div>

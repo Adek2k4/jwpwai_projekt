@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/app/context/AuthContext';
 import ThemeToggle from './ThemeToggle';
+import styles from './css/Header.module.css';
 
 export default function Header() {
   const router = useRouter();
@@ -16,29 +17,29 @@ export default function Header() {
   };
 
   return (
-    <header className="header">
-      <div className="container header-content">
-        <Link href="/" className="logo-link">
-          <div className="logo-container">
+    <header className={styles.header}>
+      <div className={`container ${styles.headerContent}`}>
+        <Link href="/" className={styles.logoLink}>
+          <div className={styles.logoContainer}>
             <Image
               src="/logo.webp"
               alt="NotesApp logo"
               width={40}
               height={40}
-              className="logo-image"
+              className={styles.logoImage}
             />
           </div>
-          <span className="logo-text">NotesApp</span>
+          <span className={styles.logoText}>NotesApp</span>
         </Link>
 
-        <nav className="nav">
+        <nav className={styles.nav}>
           <ThemeToggle />
 
           {isLoggedIn ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-              <div className="user-info">
-                <p className="user-name">{user?.name || 'Użytkownik'}</p>
-                <p className="user-email">{user?.email}</p>
+              <div className={styles.userInfo}>
+                <p className={styles.userName}>{user?.name || 'Użytkownik'}</p>
+                <p className={styles.userEmail}>{user?.email}</p>
               </div>
               <button onClick={handleLogout} className="btn btn-danger">
                 Wyloguj

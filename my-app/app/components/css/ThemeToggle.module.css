@@ -1,0 +1,44 @@
+/* Theme Toggle */
+.themeToggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 80px;
+  height: 40px;
+  border-radius: 9999px;
+  background-color: var(--bg-tertiary);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.themeToggleSlider {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  background-color: white;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease;
+  transform: translateX(4px);
+  z-index: 2;
+}
+
+.dark {
+  transform: translateX(44px);
+}
+
+.themeIcon {
+  position: absolute;
+  font-size: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.themeIconSun {
+  left: 8px;
+}
+
+.themeIconMoon {
+  right: 8px;
+}

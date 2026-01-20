@@ -1,11 +1,13 @@
 'use client';
 
+import styles from './css/Footer.module.css';
+
 export default function Footer() {
   return (
-    <footer className="footer">
+    <footer className={styles.footer}>
       <div className="container">
-        <div className="footer-content">
-          <div className="footer-section">
+        <div className={styles.footerContent}>
+          <div className={styles.footerSection}>
             <h3>O Aplikacji</h3>
             <p>
               NotesApp to aplikacja do zarządzania notatkami tekstowymi z obsługą zdjęć i
@@ -13,7 +15,7 @@ export default function Footer() {
             </p>
           </div>
 
-          <div className="footer-section">
+          <div className={styles.footerSection}>
             <h3>Funkcje</h3>
             <ul>
               <li>📝 Tworzenie notatek</li>
@@ -23,7 +25,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div className="footer-section">
+          <div className={styles.footerSection}>
             <h3>Kontakt</h3>
             <p>
               📧 contact@notesapp.pl
@@ -33,7 +35,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="footer-bottom">
+        <div className={styles.footerBottom}>
           <p>© 2026 NotesApp. Wszystkie prawa zastrzeżone.</p>
         </div>
       </div>

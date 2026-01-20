@@ -1,0 +1,44 @@
+/* Home (Landing) Page */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1rem 3rem 1rem;
+  background:
+    radial-gradient(1200px at var(--hero-mouse-x, 50%) var(--hero-mouse-y, 50%), var(--hero-spot), transparent 80%),
+    linear-gradient(135deg, var(--hero-gradient-start), var(--hero-gradient-end));
+}
+
+.heroContent {
+  max-width: 720px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.heroTitle {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.heroDescription {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.heroButtons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding-top: 6rem;
+  }
+}

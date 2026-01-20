@@ -1,0 +1,105 @@
+/* Register Page Styles */
+.authPage {
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px at var(--hero-mouse-x, 50%) var(--hero-mouse-y, 50%), var(--hero-spot), transparent 80%),
+    linear-gradient(135deg, var(--hero-gradient-start), var(--hero-gradient-end));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 1rem;
+}
+
+.authContainer {
+  width: 100%;
+  max-width: 450px;
+}
+
+.authHeader {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.authLogo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.authLogoBox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 0.75rem;
+  background-color: white;
+  box-shadow: var(--shadow);
+}
+
+.authLogoImage {
+  width: 40px;
+  height: 40px;
+}
+
+.authTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.authSubtitle {
+  color: var(--text-secondary);
+}
+
+.errorMessage {
+  padding: 0.75rem;
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid var(--red-primary);
+  border-radius: 0.5rem;
+  color: var(--red-primary);
+  font-size: 0.875rem;
+}
+
+.divider {
+  position: relative;
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: var(--border-color);
+}
+
+.dividerText {
+  position: relative;
+  display: inline-block;
+  padding: 0 0.5rem;
+  background-color: transparent;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.authLink {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.authLink a {
+  color: var(--blue-primary);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.authLink a:hover {
+  color: var(--blue-hover);
+}

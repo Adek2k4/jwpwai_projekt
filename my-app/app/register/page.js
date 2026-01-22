@@ -12,7 +12,7 @@ import styles from './page.module.css';
 
 export default function RegisterPage() {
   const router = useRouter();
-  const { setIsLoggedIn, setUser } = useAuth();
+  const { register } = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const pageRef = useInteractiveGradient();
@@ -40,20 +40,10 @@ export default function RegisterPage() {
         return;
       }
 
-      // Symulacja logowania - backend będzie dodany później
-      console.log('Dane rejestracji:', { email, password, name });
-
-      // Tymczasowo: ustawimy użytkownika w state (bez backend)
-      setUser({
-        email,
-        name,
-        id: Math.random().toString(),
-      });
-
-      setIsLoggedIn(true);
+      await register({ email, password, name });
       router.push('/notes');
     } catch (err) {
-      setError('Błąd podczas rejestracji. Spróbuj ponownie.');
+      setError(err.message || 'Błąd podczas rejestracji. Spróbuj ponownie.');
     } finally {
       setLoading(false);
     }

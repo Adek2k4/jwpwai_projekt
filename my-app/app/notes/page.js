@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/app/context/AuthContext';
 import useInteractiveGradient from '@/app/hooks/useInteractiveGradient';
@@ -9,11 +9,11 @@ import NotesControls from '@/app/components/notes/NotesControls';
 import NotesList from '@/app/components/notes/NotesList';
 import ImagePreviewModal from '@/app/components/notes/ImagePreviewModal';
 import ImagePreviewSingle from '@/app/components/notes/ImagePreviewSingle';
-import styles from './notes.module.css';
+import styles from '@/app/components/css/Notes.module.css';
 
 export default function NotesPage() {
   const router = useRouter();
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, authReady } = useAuth();
   const pageRef = useInteractiveGradient();
   
   const [notes, setNotes] = useState([]);
@@ -24,9 +24,18 @@ export default function NotesPage() {
   const [imagePreviewModal, setImagePreviewModal] = useState(null); // { images: [], currentIndex: 0 }
   const [previewImage, setPreviewImage] = useState(null); // Single image fullscreen preview
 
-  // Przekieruj do logowania jeśli niezalogowany
-  if (typeof window !== 'undefined' && !isLoggedIn) {
-    router.push('/login');
+  // Przekieruj do logowania po ustaleniu stanu sesji, poza fazą renderu
+  useEffect(() => {
+    if (authReady && !isLoggedIn) {
+      router.replace('/login');
+    }
+  }, [authReady, isLoggedIn, router]);
+
+  if (!authReady) {
+    return null;
+  }
+
+  if (!isLoggedIn) {
     return null;
   }
 

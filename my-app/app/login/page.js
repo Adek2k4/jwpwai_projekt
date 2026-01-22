@@ -12,7 +12,7 @@ import styles from './page.module.css';
 
 export default function LoginPage() {
   const router = useRouter();
-  const { setIsLoggedIn, setUser } = useAuth();
+  const { login } = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const pageRef = useInteractiveGradient();
@@ -32,20 +32,10 @@ export default function LoginPage() {
         return;
       }
 
-      // Symulacja logowania - backend będzie dodany później
-      console.log('Dane logowania:', { email, password });
-
-      // Tymczasowo: ustawimy użytkownika w state (bez backend)
-      setUser({
-        email,
-        name: email.split('@')[0],
-        id: Math.random().toString(),
-      });
-
-      setIsLoggedIn(true);
+      await login(email, password);
       router.push('/notes');
     } catch (err) {
-      setError('Błąd podczas logowania. Spróbuj ponownie.');
+      setError(err.message || 'Błąd podczas logowania. Spróbuj ponownie.');
     } finally {
       setLoading(false);
     }

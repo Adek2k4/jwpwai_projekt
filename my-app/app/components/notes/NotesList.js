@@ -1,5 +1,5 @@
 import NoteCard from './NoteCard';
-import styles from '@/app/notes/notes.module.css';
+import styles from '@/app/components/css/Notes.module.css';
 
 export default function NotesList({ notes, editingId, viewMode, onEdit, onSave, onDelete, onCancel, onImagePreview, onImageSinglePreview }) {
   if (notes.length === 0) {

@@ -1,8 +1,7 @@
-'use client';
-
 export default function GoogleButton() {
   const handleGoogleLogin = () => {
-    console.log('Logowanie przez Google');
+    // Redirect to Google OAuth endpoint
+    window.location.href = '/api/auth/google';
   };
 
   return (

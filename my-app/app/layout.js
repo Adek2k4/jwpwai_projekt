@@ -1,11 +1,25 @@
-import './globals.css';
-import RootLayoutClient from '@/app/components/RootLayoutClient';
+'use client';
 
-export const metadata = {
-  title: 'NotesApp - Zarządzanie notatkami',
-  description: 'Aplikacja do zarządzania notatkami tekstowymi z możliwością dodawania zdjęć',
-};
+import './globals.css';
+import { ThemeProvider } from '@/app/context/ThemeContext';
+import { AuthProvider } from '@/app/context/AuthContext';
+import Header from '@/app/components/Header';
+import Footer from '@/app/components/Footer';
 
 export default function RootLayout({ children }) {
-  return <RootLayoutClient>{children}</RootLayoutClient>;
+  return (
+    <html lang="pl" suppressHydrationWarning>
+      <body>
+        <ThemeProvider>
+          <AuthProvider>
+            <div className="layout">
+              <Header />
+              <main className="main-content">{children}</main>
+              <Footer />
+            </div>
+          </AuthProvider>
+        </ThemeProvider>
+      </body>
+    </html>
+  );
 }

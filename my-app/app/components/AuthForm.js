@@ -1,5 +1,3 @@
-'use client';
-
 import styles from '@/app/components/css/AuthForm.module.css';
 
 export default function AuthForm({ title, onSubmit, isLogin = false }) {

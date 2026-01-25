@@ -1,4 +1,4 @@
-'use client';
+
 
 import { useTheme } from '@/app/context/ThemeContext';
 import styles from './css/ThemeToggle.module.css';

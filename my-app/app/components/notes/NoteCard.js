@@ -10,15 +10,19 @@ export default function NoteCard({ note, isEditing, onEdit, onSave, onDelete, on
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
-    
-    const readers = files.map((file) => {
+    if (images.length >= 5) {
+      alert('Możesz dodać maksymalnie 5 zdjęć do jednej notatki.');
+      return;
+    }
+    const availableSlots = 5 - images.length;
+    const filesToAdd = files.slice(0, availableSlots);
+    const readers = filesToAdd.map((file) => {
       return new Promise((resolve) => {
         const reader = new FileReader();
         reader.onloadend = () => resolve(reader.result);
         reader.readAsDataURL(file);
       });
     });
-
     Promise.all(readers).then((results) => {
       setImages([...images, ...results]);
     });

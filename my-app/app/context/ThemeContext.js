@@ -18,7 +18,6 @@ export function ThemeProvider({ children }) {
     
     const shouldBeDark = savedTheme ? savedTheme === 'dark' : prefersDark;
     
-    console.log('Init theme:', { savedTheme, prefersDark, shouldBeDark });
     
     setIsDark(shouldBeDark);
 
@@ -36,7 +35,6 @@ export function ThemeProvider({ children }) {
       localStorage.setItem('theme', 'light');
     }
 
-    console.log('HTML classes after init:', html.className);
     setIsMounted(true);
   }, []);
 
@@ -45,7 +43,6 @@ export function ThemeProvider({ children }) {
     setIsDark(newIsDark);
     
     const html = document.documentElement;
-    console.log('Toggle theme:', newIsDark, 'Classes before:', html.className);
     
     if (newIsDark) {
       html.classList.add('dark');
@@ -59,7 +56,6 @@ export function ThemeProvider({ children }) {
       localStorage.setItem('theme', 'light');
     }
     
-    console.log('Classes after:', html.className);
   };
 
   return (

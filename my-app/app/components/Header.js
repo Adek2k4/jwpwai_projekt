@@ -29,10 +29,13 @@ export default function Header() {
           </div>
           <span className={styles.logoText}>NotesApp</span>
         </Link>
-
+        {isLoggedIn && (
+          <Link href="/notes" className={styles.notesNavLink}>
+            Notatki
+          </Link>
+        )}
         <nav className={styles.nav}>
           <ThemeToggle />
-
           {isLoggedIn ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
               <div className={styles.userInfo}>

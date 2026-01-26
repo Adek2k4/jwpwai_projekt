@@ -1,4 +1,4 @@
-import styles from '@/app/components/css/Notes.module.css';
+import styles from '@/app/components/css/NotesHeader.module.css';
 
 export default function NotesHeader({ onCreateNote }) {
   return (

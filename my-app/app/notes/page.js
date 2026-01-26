@@ -9,7 +9,7 @@ import NotesControls from '@/app/components/notes/NotesControls';
 import NotesList from '@/app/components/notes/NotesList';
 import ImagePreviewModal from '@/app/components/notes/ImagePreviewModal';
 import ImagePreviewSingle from '@/app/components/notes/ImagePreviewSingle';
-import styles from '@/app/components/css/Notes.module.css';
+import styles from '@/app/notes/notes.module.css';
 
 export default function NotesPage() {
   const router = useRouter();
@@ -23,25 +23,36 @@ export default function NotesPage() {
   const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
   const [imagePreviewModal, setImagePreviewModal] = useState(null); // { images: [], currentIndex: 0 }
   const [previewImage, setPreviewImage] = useState(null); // Single image fullscreen preview
+  const [loadingNotes, setLoadingNotes] = useState(true);
 
-  // Przekieruj do logowania po ustaleniu stanu sesji, poza fazą renderu
+  // Pobierz notatki z bazy danych
   useEffect(() => {
-    if (authReady && !isLoggedIn) {
-      router.replace('/login');
+    const loadNotes = async () => {
+      setLoadingNotes(true);
+      try {
+        const response = await fetch('/api/notes');
+        if (response.ok) {
+          const data = await response.json();
+          setNotes(data);
+        }
+      } catch (error) {
+        console.error('Error loading notes:', error);
+      } finally {
+        setLoadingNotes(false);
+      }
+    };
+
+    if (isLoggedIn) {
+      loadNotes();
+    } else {
+      setLoadingNotes(false);
     }
-  }, [authReady, isLoggedIn, router]);
-
-  if (!authReady) {
-    return null;
-  }
-
-  if (!isLoggedIn) {
-    return null;
-  }
+  }, [isLoggedIn]);
 
   const handleCreateNote = () => {
+    const tempId = `temp-${Date.now()}`;
     const newNote = {
-      id: Date.now().toString(),
+      id: tempId,
       title: '',
       content: '',
       images: [],
@@ -49,32 +60,87 @@ export default function NotesPage() {
       updatedAt: new Date().toISOString(),
     };
     setNotes([newNote, ...notes]);
-    setEditingId(newNote.id);
+    setEditingId(tempId);
     setIsCreating(true);
   };
 
-  const handleSaveNote = (id, title, content, images) => {
-    setNotes(notes.map(note => 
-      note.id === id 
-        ? { ...note, title, content, images, updatedAt: new Date().toISOString() }
-        : note
-    ));
-    setEditingId(null);
-    setIsCreating(false);
+  const handleSaveNote = async (id, title, content, images) => {
+    try {
+      const isTemp = id.startsWith('temp-');
+      let updatedNote = null;
+
+      if (isTemp) {
+        // Nowa notatka – zapisz do bazy
+        const response = await fetch('/api/notes', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title, content, images }),
+        });
+
+        if (response.ok) {
+          updatedNote = await response.json();
+        } else {
+          throw new Error('Failed to create note');
+        }
+      } else {
+        // Istniejąca notatka – zaktualizuj
+        const response = await fetch(`/api/notes/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title, content, images }),
+        });
+
+        if (response.ok) {
+          updatedNote = await response.json();
+        } else {
+          throw new Error('Failed to update note');
+        }
+      }
+
+      if (updatedNote) {
+        setNotes(notes.map(note => (note.id === id ? updatedNote : note)));
+        setEditingId(null);
+        setIsCreating(false);
+      }
+    } catch (error) {
+      console.error('Error saving note:', error);
+    }
   };
 
-  const handleDeleteNote = (id) => {
-    if (confirm('Czy na pewno chcesz usunąć tę notatkę?')) {
+  const handleDeleteNote = async (id) => {
+    if (!confirm('Czy na pewno chcesz usunąć tę notatkę?')) return;
+
+    const isTemp = id.startsWith('temp-');
+
+    if (isTemp) {
       setNotes(notes.filter(note => note.id !== id));
       if (editingId === id) {
         setEditingId(null);
         setIsCreating(false);
       }
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/notes/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        setNotes(notes.filter(note => note.id !== id));
+        if (editingId === id) {
+          setEditingId(null);
+          setIsCreating(false);
+        }
+      }
+    } catch (error) {
+      console.error('Error deleting note:', error);
     }
   };
 
   const handleCancelEdit = () => {
-    if (isCreating) {
+    if (isCreating && editingId) {
+      // Lokalna, jeszcze niezapisana notatka – usuń tylko ze stanu
       setNotes(notes.filter(note => note.id !== editingId));
     }
     setEditingId(null);
@@ -126,17 +192,23 @@ export default function NotesPage() {
         />
 
         {/* Notes Grid/List */}
-        <NotesList
-          notes={filteredNotes}
-          editingId={editingId}
-          viewMode={viewMode}
-          onEdit={setEditingId}
-          onSave={handleSaveNote}
-          onDelete={handleDeleteNote}
-          onCancel={handleCancelEdit}
-          onImagePreview={(images, index) => setImagePreviewModal({ images, currentIndex: index })}
-          onImageSinglePreview={setPreviewImage}
-        />
+        {loadingNotes && (
+          <div className={styles.loadingNotes}>Ładowanie notatek...</div>
+        )}
+        {!loadingNotes && (
+          <NotesList
+            notes={filteredNotes}
+            editingId={editingId}
+            viewMode={viewMode}
+            onEdit={setEditingId}
+            onSave={handleSaveNote}
+            onDelete={handleDeleteNote}
+            onCancel={handleCancelEdit}
+            onImagePreview={(images, index) => setImagePreviewModal({ images, currentIndex: index })}
+            onImageSinglePreview={setPreviewImage}
+            loadingNotes={loadingNotes}
+          />
+        )}
       </div>
     </div>
   );

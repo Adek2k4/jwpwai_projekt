@@ -1,4 +1,4 @@
-import styles from '@/app/components/css/Notes.module.css';
+import styles from '@/app/components/css/ImagePreviewModal.module.css';
 
 export default function ImagePreviewModal({ images, currentIndex, onClose, onNext, onPrev }) {
   return (

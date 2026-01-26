@@ -1,4 +1,4 @@
-import styles from '@/app/components/css/Notes.module.css';
+import styles from '@/app/components/css/NotesControls.module.css';
 
 export default function NotesControls({ searchQuery, onSearchChange, viewMode, onViewModeChange }) {
   return (

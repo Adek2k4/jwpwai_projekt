@@ -13,6 +13,18 @@ model User {
   name      String
   password  String?
   googleId  String?  @unique
+  notes     Note[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Note {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String   @default("")
+  content   String   @default("")
+  images    String[] @default([]) // Base64 encoded images
+  userId    String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

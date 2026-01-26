@@ -1,4 +1,4 @@
-import styles from '@/app/components/css/Notes.module.css';
+import styles from '@/app/components/css/ImagePreviewSingle.module.css';
 
 export default function ImagePreviewSingle({ image, onClose }) {
   return (

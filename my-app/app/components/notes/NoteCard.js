@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import styles from '@/app/components/css/Notes.module.css';
+import styles from '@/app/components/css/NoteCard.module.css';
 
 export default function NoteCard({ note, isEditing, onEdit, onSave, onDelete, onCancel, onImagePreview, onImageSinglePreview, viewMode }) {
   const [title, setTitle] = useState(note.title);
